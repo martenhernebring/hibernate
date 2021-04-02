@@ -5,23 +5,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.ginsberg.junit.exit.ExpectSystemExit;
 import com.ginsberg.junit.exit.FailOnSystemExit;
 
 public class SystemTest {
+    
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    @Test
-    @FailOnSystemExit
-    public void systemExitNotCalled() {
-        Main.main(null);
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
     }
     
     @Test
-    public void printBook() {
-        final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStreamCaptor));
+    public void printTitle() {
         Main.main(new String[]{"Title"});
         assertEquals("Book[author=null,title=Title]", outputStreamCaptor.toString().trim());
+    }
+    
+    @Test
+    public void printTitleAuthor() {
+        Main.main(new String[]{"Title", "Isbn", "Author"});
+        assertEquals("Book[author=Author,title=Title]", outputStreamCaptor.toString().trim());
+    }
+    
+    @AfterEach
+    public void tearDown() {
+        System.setOut(standardOut);
     }
 }
