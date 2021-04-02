@@ -1,8 +1,6 @@
-package se.hernebring;
+package se.hernebring.app;
 
-import org.hibernate.Session;
-
-import se.hernebring.domain.Book;
+import se.hernebring.store.BookDecorator;
 
 public class Main {
 
@@ -10,19 +8,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Book book;
-        if (args != null && !args[0].equals("")) {
-            int argNo = args.length;
-            if (argNo > 0) {
-                if (argNo < 3) {
-                    book = new Book(args[0]);
-                    System.out.println(book);
-                } else {
-                    book = new Book(args[0], args[1], args[2]);
-                    System.out.println(book);
-                }
-            }
-        } else {
+        try{
+            BookDecorator book = new BookDecorator(args);
+            System.out.println(book);
+        } catch (IllegalArgumentException ex) {
             System.err.println("Usage: se.hernebring.Main title <isbn> <author>");
             System.exit(1);
         }

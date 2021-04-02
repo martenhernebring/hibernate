@@ -1,4 +1,4 @@
-package se.hernebring;
+package se.hernebring.system;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,10 +9,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.ginsberg.junit.exit.ExpectSystemExit;
-import com.ginsberg.junit.exit.FailOnSystemExit;
+import se.hernebring.app.Main;
 
-public class SystemTest {
+public class PrintTest {
     
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
