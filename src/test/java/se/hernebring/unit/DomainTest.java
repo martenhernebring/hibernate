@@ -2,15 +2,9 @@ package se.hernebring.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import org.hibernate.MappingException;
-import org.hibernate.service.classloading.spi.ClassLoadingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import se.hernebring.domain.Book;
-import se.hernebring.store.BookDecorator;
 
 public class DomainTest {
 
