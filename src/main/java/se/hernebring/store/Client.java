@@ -5,9 +5,15 @@ import se.hernebring.domain.Book;
 public class Client {
 
     private Book book;
+    private int id;
     
     public Client() {
         this.book = new Book("Effective Java 3rd Edition", "978-0134685991", "Joshua Bloch");
+        noIdSelected();
+    }
+
+    private void noIdSelected() {
+        this.id = -1;
     }
 
     public Client(String[] args) {
@@ -30,12 +36,18 @@ public class Client {
     }
 
     public void getId(int id) {
+        this.id = id;
         book = Server.get(id);
     }
 
-    public void updateAuthor(String string) {
-        // TODO Auto-generated method stub
-        
+    public void updateAuthor(String name) {
+        book.setAuthor(name);
+    }
+
+    public void delete() {
+        Server.delete(id);
+        noIdSelected();
+        this.book = null;
     }
 
 }

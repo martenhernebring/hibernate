@@ -41,4 +41,14 @@ public class Server {
         session.close();
         return book;
     }
+
+    public static void delete(int id) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        Book book = (Book) session.get(Book.class, id);
+        session.delete(book);
+        transaction.commit();
+        session.close();
+    }
 }
