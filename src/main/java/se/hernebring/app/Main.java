@@ -11,6 +11,8 @@ import sun.misc.Unsafe;
 
 public class Main {
 
+    final static File tempFile = new File("config_test.tmp");
+
     protected Main() {
     }
 
@@ -18,35 +20,38 @@ public class Main {
         if (args != null && args.length > 0 && !args[0].equals("")) {
             printToTempFileForTestingIntegration(args);
         } else {
-            File tempFile = new File("config_test.tmp");
-            var client = new Client();
             disableIllegalAccessWarning();
-            client.save(3);
-            client.getId(3);
-            try(BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))){
-                writer.write(client.toString() + '\n');
-                client.updateAuthor("Joshua J. Bloch");
-                writer.write(client.toString()  + '\n');
-                client.delete();
-                try {
-                    writer.write(client.toString()  + '\n');
-                } catch (NullPointerException ex) {
-                    writer.write("NullPointerException thrown\n");
-                }
-            } catch (IOException ex) {
-                //test will fail due to no file
-            }
+            ovningar1Task4();
         }
     }
-    
+
+    private static void ovningar1Task4() {
+        var client = new Client();
+        client.save(3);
+        client.getId(3);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            writer.write(client.toString() + '\n');
+            client.updateAuthor("Joshua J. Bloch");
+            writer.write(client.toString() + '\n');
+            client.delete();
+            try {
+                writer.write(client.toString() + '\n');
+            } catch (NullPointerException ex) {
+                writer.write("NullPointerException thrown\n");
+            }
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
     private static void printToTempFileForTestingIntegration(String[] args) {
         File tempFile = new File("print_test.tmp");
         var client = new Client(args);
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
             writer.write(client.toString());
         } catch (IOException ex) {
-            //test will fail due to no file
-        }  
+            System.err.println(ex.getMessage());
+        }
     }
 
     private static void disableIllegalAccessWarning() {
@@ -58,7 +63,8 @@ public class Main {
             Class cls = Class.forName("jdk.internal.module.IllegalAccessLogger");
             Field logger = cls.getDeclaredField("logger");
             u.putObjectVolatile(cls, u.staticFieldOffset(logger), null);
-        } catch (Exception e) {
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
+                | ClassNotFoundException ex) {
             // ignore
         }
     }
