@@ -1,37 +1,48 @@
 package se.hernebring.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.fail;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
 public class PrintTest {
 
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
+    private static File tempFile = new File("print_test.tmp");
 
     @Test
     public void title() {
         Main.main(new String[] { "Title" });
-        assertEquals("Book[author=null,title=Title]", outputStreamCaptor.toString().trim());
+        String line = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
+            line = reader.readLine();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+            fail();
+        }
+        assertEquals("Book[author=null,title=Title]", line.trim());
     }
 
     @Test
-    public void ttleAuthor() {
+    public void titleAuthor() {
         Main.main(new String[] { "Title", "Isbn", "Author" });
-        assertEquals("Book[author=Author,title=Title]", outputStreamCaptor.toString().trim());
+        String line = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
+            line = reader.readLine();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+            fail();
+        }
+        assertEquals("Book[author=Author,title=Title]", line.trim());
     }
 
-    @AfterEach
-    public void tearDown() {
-        System.setOut(System.out);
+    @AfterAll
+    public static void deleteTempFile() {
+        tempFile.deleteOnExit();
     }
 }
