@@ -1,6 +1,10 @@
 package se.hernebring.app;
 
+import java.lang.reflect.Field;
+
+import se.hernebring.domain.Book;
 import se.hernebring.store.BookDecorator;
+import sun.misc.Unsafe;
 
 public class Main {
 
@@ -8,27 +12,41 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        try{
-            BookDecorator book = new BookDecorator(args);
-            System.out.println(book);
-        } catch (IllegalArgumentException ex) {
-            System.err.println("Usage: se.hernebring.Main title <isbn> <author>");
-            System.exit(1);
+        if (args != null && args.length > 0 && !args[0].equals("")) {
+            printBookFromArgsContainingTitle(args);
+        } else {
+            Book book = new Book("Effective Java 3rd Edition", "978-0134685991", "Joshua Bloch");
+            var decorator = new BookDecorator(book);
+            disableIllegalAccessWarning();
+            decorator.save();
+            decorator.save();
+            decorator.save();
+            System.out.print(decorator.get(3));
         }
-        // Tutor tutor = new Tutor("ABC123" ,"Edward", 30000);
-        // Student student = new Student("Sara Hedborn");
-
-        /*
-         * var factory = getSessionFactory(); Session session = factory.openSession();
-         * var transaction = session.beginTransaction(); /*Tutor myTutor =(Tutor)
-         * session.get(Tutor.class, 1); student.allocateTutor(myTutor);
-         * session.save(student); System.out.println(student.getTutorName()); //Student
-         * student = (Student) session.get(Student.class, 2); //session.delete(student);
-         * Student student2 = new Student("Martin Sten"); Tutor myTutor =(Tutor)
-         * session.get(Tutor.class, 1); student2.allocateTutor(myTutor);
-         * session.save(student2);
-         * 
-         * transaction.commit(); session.close();
-         */
     }
+
+    private static void printBookFromArgsContainingTitle(String[] args) {
+        Book book = new Book(args[0]);
+        if (args.length > 2) {
+            book.setIsbn(args[1]);
+            book.setAuthor(args[2]);
+        }
+        System.out.println(book);
+    }
+    
+    private static void disableIllegalAccessWarning() {
+        try {
+            Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+            theUnsafe.setAccessible(true);
+            Unsafe u = (Unsafe) theUnsafe.get(null);
+
+            @SuppressWarnings("rawtypes")
+            Class cls = Class.forName("jdk.internal.module.IllegalAccessLogger");
+            Field logger = cls.getDeclaredField("logger");
+            u.putObjectVolatile(cls, u.staticFieldOffset(logger), null);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+
 }

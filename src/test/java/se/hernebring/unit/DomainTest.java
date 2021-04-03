@@ -2,6 +2,10 @@ package se.hernebring.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.hibernate.MappingException;
+import org.hibernate.service.classloading.spi.ClassLoadingException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,13 +49,15 @@ public class DomainTest {
     }
     
     @Test
-    public void saveIfMappingAndDriverIsCorrect() {
-        var decorator = new BookDecorator(title);
-        //try {
-            decorator.save();
-        //} catch (MappingException | ClassLoadingException ex) {
-            //fail("Book was not saved");
-        //}
+    public void addIsbn() {
+        title.setIsbn("978-0134685991");
+        assertEquals(title.getIsbn(), "978-0134685991");
+    }
+    
+    @Test
+    public void addAuthor() {
+        title.setAuthor("Joshua Bloch");
+        assertEquals(title.getAuthor(), "Joshua Bloch");
     }
 
 }
