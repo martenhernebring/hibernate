@@ -14,7 +14,7 @@ public class DomainTest {
     @BeforeAll
     public static void init() {
         title = new Book("Title");
-        titleIsbnAuthor = new Book("Title", 9876543210L, "Author");
+        titleIsbnAuthor = new Book("Title", 9780134686097L, "Author");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class DomainTest {
 
     @Test
     public void authorEqualsString() {
-        assertEquals(titleIsbnAuthor.getAuthor(), "Author");
+        assertEquals("Author", titleIsbnAuthor.getAuthor());
     }
 
     @Test
@@ -44,14 +44,20 @@ public class DomainTest {
     
     @Test
     public void addIsbn() {
-        title.setIsbn(9780134685991L);
-        assertEquals(title.getIsbn(), 9780134685991L);
+        title.setIsbn(9780134686097L);
+        assertEquals(9780134686097L, title.getIsbn());
     }
     
     @Test
     public void addAuthor() {
         title.setAuthor("Joshua Bloch");
-        assertEquals(title.getAuthor(), "Joshua Bloch");
+        assertEquals("Joshua Bloch", title.getAuthor());
+    }
+    
+    @Test
+    public void addPublisher() {
+        title.setPublisher("Addison-Wesley Professional");
+        assertEquals("Addison-Wesley Professional", title.getPublisher());
     }
 
 }

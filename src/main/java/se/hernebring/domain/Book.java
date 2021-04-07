@@ -25,6 +25,8 @@ public class Book {
     private Long isbn;
     private String author;
 
+    private String publisher;
+
     // Hibernate requirement
     public Book() {
     }
@@ -86,6 +88,14 @@ public class Book {
 
     public int compareTo(Book book) {
         return new CompareToBuilder().append(this.title, book.title).toComparison();
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublisher() {
+        return this.publisher;
     }
 
 }
