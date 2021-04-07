@@ -28,6 +28,8 @@ public class ConfigurationTest {
             Main.main(noArgs);
         } catch (MappingException | ClassLoadingException ex) {
             fail("Book was not saved. Problem with database-jar/dependency.");
+        } catch (NullPointerException ex) {
+            fail("Request book does not exist. Was it maybe deleted previously?");
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
             lines = reader.lines().collect(Collectors.toList());
@@ -39,17 +41,27 @@ public class ConfigurationTest {
     }
     
     @Test
-    public void saveSameBook3timesVerifyId3() {
+    public void saveSameBook3timesVerifyId1() {
         assertEquals("Book[author=Joshua Bloch,title=Effective Java 3rd Edition]", lines.get(0).trim());
     }
     
     @Test
-    public void updateAuthorInDatabase() {
+    public void authorWasUpdatedInDatabase() {
         assertEquals("Book[author=Joshua J. Bloch,title=Effective Java 3rd Edition]", lines.get(1).trim());
     }
     
     @Test
     public void deleteOneBook() {
         assertEquals("NullPointerException thrown", lines.get(2).trim());
+    }
+    
+    @Test
+    public void bookSecondFieldIsIsbn() {
+        assertEquals("isbn", lines.get(3).trim());
+    }
+    
+    @Test
+    public void storedSecondFieldIsIsbnNum() {
+        assertEquals("ISBN_NUM", lines.get(4).trim());
     }
 }

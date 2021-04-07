@@ -14,7 +14,7 @@ public class DomainTest {
     @BeforeAll
     public static void init() {
         title = new Book("Title");
-        titleIsbnAuthor = new Book("Title", "Isbn", "Author");
+        titleIsbnAuthor = new Book("Title", 9876543210L, "Author");
     }
 
     @Test
@@ -44,8 +44,8 @@ public class DomainTest {
     
     @Test
     public void addIsbn() {
-        title.setIsbn("978-0134685991");
-        assertEquals(title.getIsbn(), "978-0134685991");
+        title.setIsbn(9780134685991L);
+        assertEquals(title.getIsbn(), 9780134685991L);
     }
     
     @Test

@@ -3,6 +3,7 @@ package se.hernebring.store;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -50,5 +51,21 @@ public class Server {
         session.delete(book);
         transaction.commit();
         session.close();
+    }
+
+    public static String getRegisteredName(String propertyName) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var aep = ((AbstractEntityPersister) session.getSessionFactory().getClassMetadata(Book.class));
+        String[] properties = aep.getPropertyNames();
+        String registeredName = null;
+        for (int nameIndex = 0; nameIndex != properties.length; nameIndex++) {
+            if (properties[nameIndex] == propertyName) {
+                String[] columns = aep.getPropertyColumnNames(nameIndex);
+                registeredName = columns[0];
+            }
+        }
+        session.close();
+        return registeredName;
     }
 }

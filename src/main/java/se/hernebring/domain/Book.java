@@ -1,17 +1,18 @@
 package se.hernebring.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+//import javax.persistence.Table; To change table name
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "TBL_BOOK")
+//@Table(name = "TBL_BOOK") To change table name
 public class Book {
 
     // Auto generate id to be used as primary key required by Hibernate
@@ -20,7 +21,8 @@ public class Book {
     private int id;
 
     private String title;
-    private String isbn;
+    @Column (name="ISBN_NUM")
+    private Long isbn;
     private String author;
 
     // Hibernate requirement
@@ -31,7 +33,7 @@ public class Book {
         this.title = title;
     }
 
-    public Book(String title, String isbn, String author) {
+    public Book(String title, long isbn, String author) {
         this.title = title;
         this.isbn = isbn;
         this.author = author;
@@ -41,7 +43,7 @@ public class Book {
         return title;
     }
 
-    public String getIsbn() {
+    public Long getIsbn() {
         return isbn;
     }
 
@@ -49,7 +51,7 @@ public class Book {
         return author;
     }
     
-    public void setIsbn(String isbn) {
+    public void setIsbn(Long isbn) {
         this.isbn = isbn;
     }
 

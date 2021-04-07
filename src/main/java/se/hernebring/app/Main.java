@@ -27,18 +27,25 @@ public class Main {
 
     private static void ovningar1Task4() {
         var client = new Client();
-        client.save(3);
-        client.getId(3);
+        //client.save(3); //Övning 1
+        //client.getId(3); //Övning 1
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            client.getId(1);
             writer.write(client.toString() + '\n');
+            client.getId(2);
             client.updateAuthor("Joshua J. Bloch");
             writer.write(client.toString() + '\n');
-            client.delete();
+            client.getId(3);
+            //client.delete(); //Övning 1
             try {
                 writer.write(client.toString() + '\n');
             } catch (NullPointerException ex) {
                 writer.write("NullPointerException thrown\n");
             }
+            //Övning 2
+            client.getId(1);
+            writer.write(client.getRegisteredName(false) + '\n');
+            writer.write(client.getRegisteredName(true) + '\n');
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }

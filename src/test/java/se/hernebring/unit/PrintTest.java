@@ -30,7 +30,7 @@ public class PrintTest {
 
     @Test
     public void titleAuthor() {
-        Main.main(new String[] { "Title", "Isbn", "Author" });
+        Main.main(new String[] { "Title", "9876543210", "Author" });
         String line = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
             line = reader.readLine();
