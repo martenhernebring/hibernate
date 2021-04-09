@@ -25,7 +25,7 @@ public class PrintTest {
             System.err.println(ex.getMessage());
             fail();
         }
-        assertEquals("Book[author=null,title=Title]", line.trim());
+        assertEquals("OldBook[author=null,title=Title]", line.trim());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class PrintTest {
             System.err.println(ex.getMessage());
             fail();
         }
-        assertEquals("Book[author=Author,title=Title]", line.trim());
+        assertEquals("OldBook[author=Author,title=Title]", line.trim());
     }
 
     @AfterAll

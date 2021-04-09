@@ -17,17 +17,20 @@ import org.junit.jupiter.api.Test;
 import se.hernebring.app.Main;
 
 public class ConfigurationTest {
-    
+
     private static List<String> lines;
-    
+
     @BeforeAll
     public static void setUp() {
         final File tempFile = new File("config_test.tmp");
         String[] noArgs = {};
+        
         try {
             Main.main(noArgs);
-        } catch (MappingException | ClassLoadingException ex) {
-            fail("Book was not saved. Problem with database-jar/dependency.");
+        } catch (MappingException ex) {
+            fail("OldBook was not saved. Problem with property access in code and field access in database.");
+        } catch (ClassLoadingException ex) {
+            fail("OldBook was not saved. Problem with database-jar/dependency.");
         } catch (NullPointerException ex) {
             fail("Request book does not exist. Was it maybe deleted previously?");
         }
@@ -39,29 +42,39 @@ public class ConfigurationTest {
         }
         tempFile.deleteOnExit();
     }
-    
+
     @Test
     public void saveSameBook3timesVerifyId1() {
-        assertEquals("Book[author=Joshua Bloch,title=Effective Java 3rd Edition]", lines.get(0).trim());
+        assertEquals("OldBook[author=Joshua Bloch,title=Effective Java 3rd Edition]", lines.get(0).trim());
     }
-    
+
     @Test
     public void authorWasUpdatedInDatabase() {
-        assertEquals("Book[author=Joshua J. Bloch,title=Effective Java 3rd Edition]", lines.get(1).trim());
+        assertEquals("OldBook[author=Joshua J. Bloch,title=Effective Java 3rd Edition]", lines.get(1).trim());
     }
-    
+
     @Test
     public void deleteOneBook() {
         assertEquals("NullPointerException thrown", lines.get(2).trim());
     }
-    
+
     @Test
     public void bookSecondFieldIsIsbn() {
         assertEquals("isbn", lines.get(3).trim());
     }
-    
+
     @Test
     public void storedSecondFieldIsIsbnNum() {
         assertEquals("ISBN_NUM", lines.get(4).trim());
+    }
+
+    @Test
+    public void changedAuthorIsStored() {
+        assertEquals("OldBook[author=Joshua Bloch,title=Effective Java 3rd Edition]", lines.get(5).trim());
+    }
+
+    @Test
+    public void numberOfPagesIsNotStored() {
+        assertEquals("NullPointerException thrown", lines.get(6).trim());
     }
 }

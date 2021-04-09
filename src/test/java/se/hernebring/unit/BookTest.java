@@ -4,17 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import se.hernebring.domain.Book;
 
-public class DomainTest {
+import se.hernebring.domain.OldBook;
 
-    static Book title;
-    static Book titleIsbnAuthor;
+public class BookTest {
+
+    static OldBook title;
+    static OldBook titleIsbnAuthor;
 
     @BeforeAll
     public static void init() {
-        title = new Book("Title");
-        titleIsbnAuthor = new Book("Title", 9780134686097L, "Author");
+        title = new OldBook("Title");
+        titleIsbnAuthor = new OldBook("Title", 9780134686097L, "Author");
     }
 
     @Test
@@ -58,6 +59,13 @@ public class DomainTest {
     public void addPublisher() {
         title.setPublisher("Addison-Wesley Professional");
         assertEquals("Addison-Wesley Professional", title.getPublisher());
+    }
+    
+    @Test
+    public void addNumberOfPages() {
+        title.setNumberOfPages(416);
+        Integer nop = 416;
+        assertEquals(nop, title.getNumberOfPages());
     }
 
 }
