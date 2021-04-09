@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.hibernate.MappingException;
 import org.hibernate.service.classloading.spi.ClassLoadingException;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,17 +17,17 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
-public class ConfigurationTest {
+public class RelationalTest {
 
     private static List<String> lines;
 
     @BeforeAll
     public static void setUp() {
-        final File tempFile = new File("config_test.tmp");
-        String[] ovningar = { "3" };
+        final File tempFile = new File("relational_test.tmp");
+        String[] noArgs = {};
 
         try {
-            Main.main(ovningar);
+            Main.main(noArgs);
         } catch (MappingException ex) {
             fail("OldBook was not saved. Problem with property access in code and field access in database.");
         } catch (ClassLoadingException ex) {
@@ -41,40 +42,13 @@ public class ConfigurationTest {
             fail();
         }
         tempFile.deleteOnExit();
+        for(String line: lines) {
+            System.out.println(line);
+        }
     }
 
     @Test
     public void saveSameBook3timesVerifyId1() {
-        assertEquals("OldBook[author=Joshua Bloch,title=Effective Java 3rd Edition]", lines.get(0).trim());
-    }
-
-    @Test
-    public void authorWasUpdatedInDatabase() {
-        assertEquals("OldBook[author=Joshua J. Bloch,title=Effective Java 3rd Edition]", lines.get(1).trim());
-    }
-
-    @Test
-    public void deleteOneBook() {
-        assertEquals("NullPointerException thrown", lines.get(2).trim());
-    }
-
-    @Test
-    public void bookSecondFieldIsIsbn() {
-        assertEquals("isbn", lines.get(3).trim());
-    }
-
-    @Test
-    public void storedSecondFieldIsIsbnNum() {
-        assertEquals("ISBN_NUM", lines.get(4).trim());
-    }
-
-    @Test
-    public void changedAuthorIsStored() {
-        assertEquals("OldBook[author=Joshua Bloch,title=Effective Java 3rd Edition]", lines.get(5).trim());
-    }
-
-    @Test
-    public void numberOfPagesIsNotStored() {
-        assertEquals("NullPointerException thrown", lines.get(6).trim());
+        assertEquals("NullPointerException thrown", lines.get(0).trim());
     }
 }

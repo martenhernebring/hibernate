@@ -8,6 +8,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import se.hernebring.domain.OldBook;
+import se.hernebring.domain.Title;
 
 public class Server {
 
@@ -24,23 +25,23 @@ public class Server {
         return sessionFactory;
     }
 
-    public static void save(OldBook oldBook) {
+    public static void save(Title title) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        session.save(oldBook);
+        session.save(title);
         transaction.commit();
         session.close();
     }
 
-    public static OldBook get(int id) {
+    public static Title get(int id, Title title) {
         var factory = Server.getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        OldBook oldBook = (OldBook) session.get(OldBook.class, id);
+        title = (Title) session.get(title.getClass(), id);
         transaction.commit();
         session.close();
-        return oldBook;
+        return title;
     }
 
     public static void delete(int id) {

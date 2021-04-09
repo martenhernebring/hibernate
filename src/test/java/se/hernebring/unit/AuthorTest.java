@@ -18,7 +18,7 @@ public class AuthorTest {
     }
     
     @Test
-    public void createBook() {
+    public void createAuthor() {
         assertNotNull(author);
     }
     

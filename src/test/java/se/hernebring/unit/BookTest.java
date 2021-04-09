@@ -1,71 +1,67 @@
 package se.hernebring.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import se.hernebring.domain.OldBook;
+import se.hernebring.domain.Author;
+import se.hernebring.domain.Book;
 
 public class BookTest {
 
-    static OldBook title;
-    static OldBook titleIsbnAuthor;
+    static Book title;
+    static Book title2;
+    static Book title3;
 
     @BeforeAll
     public static void init() {
-        title = new OldBook("Title");
-        titleIsbnAuthor = new OldBook("Title", 9780134686097L, "Author");
+        title = new Book("Title");
+        title2 = new Book("Title");
+        title3 = new Book("Title");
     }
 
     @Test
     public void createBook() {
         assertNotNull(title);
+        assertNotNull(title.getTitle());
     }
 
     @Test
     public void sameTitle() {
-        assertEquals(title.getTitle(), titleIsbnAuthor.getTitle());
-    }
-
-    @Test
-    public void isbnNotNull() {
-        assertNotNull(titleIsbnAuthor.getIsbn());
-    }
-
-    @Test
-    public void authorEqualsString() {
-        assertEquals("Author", titleIsbnAuthor.getAuthor());
+        assertEquals(title.getTitle(), title3.getTitle());
     }
 
     @Test
     public void isEqual() {
-        assertEquals(title, titleIsbnAuthor);
+        assertEquals(title, title3);
     }
     
     @Test
-    public void addIsbn() {
-        title.setIsbn(9780134686097L);
-        assertEquals(9780134686097L, title.getIsbn());
+    public void correctToString() {
+        assertEquals("Book[title=" + title.getTitle() + "]", title.toString());
+    }
+    
+    @Test
+    public void hasEmptyConstructorForHibernate() {
+        Book title4 = new Book();
+        assertNull(title4.getTitle());
+    }
+    
+    @Test
+    public void changeTitle() {
+        title2.setTitle("Other");
+        assertNotEquals(title.getTitle(), title2.getTitle());
     }
     
     @Test
     public void addAuthor() {
-        title.setAuthor("Joshua Bloch");
-        assertEquals("Joshua Bloch", title.getAuthor());
-    }
-    
-    @Test
-    public void addPublisher() {
-        title.setPublisher("Addison-Wesley Professional");
-        assertEquals("Addison-Wesley Professional", title.getPublisher());
-    }
-    
-    @Test
-    public void addNumberOfPages() {
-        title.setNumberOfPages(416);
-        Integer nop = 416;
-        assertEquals(nop, title.getNumberOfPages());
+        Author author = new Author("Joshua Bloch");
+        title.setAuthor(author);
+        assertEquals("Joshua Bloch", title.getAuthor().getName());
     }
 
 }

@@ -13,16 +13,16 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "TBL_BOOK")
-public class OldBook {
+@Table(name = "OLD_BOOK")
+public class OldBook implements Title {
 
     // Property access with Auto generate id to be used as primary key required by Hibernate
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
+
     private String title;
-    @Column (name="ISBN_NUM")
+    @Column(name = "ISBN_NUM")
     private Long isbn;
     private String author;
     private String publisher;
@@ -43,7 +43,7 @@ public class OldBook {
         this.isbn = isbn;
         this.author = author;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -59,19 +59,19 @@ public class OldBook {
     public String getAuthor() {
         return author;
     }
-    
+
     public String getPublisher() {
         return this.publisher;
     }
-    
+
     public Integer getNumberOfPages() {
         return numberOfPages;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public void setIsbn(Long isbn) {
         this.isbn = isbn;
     }
@@ -79,7 +79,7 @@ public class OldBook {
     public void setAuthor(String author) {
         this.author = author;
     }
-    
+
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
