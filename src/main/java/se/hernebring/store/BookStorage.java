@@ -8,6 +8,10 @@ public class BookStorage implements Storage {
     private Book book;
     private int id;
     
+    public BookStorage() {
+        createLocal();
+    }
+    
     public void createLocal() {
         book = new Book("Effective Java 3rd Edition");
     }
@@ -43,14 +47,6 @@ public class BookStorage implements Storage {
     
     public void delete() {
         Persistence.delete(id);
-        this.id = -1;
-        book = null;
-    }
-    
-    void delete(boolean force) {
-        if(force) {
-            Persistence.delete();
-        }
         this.id = -1;
         book = null;
     }

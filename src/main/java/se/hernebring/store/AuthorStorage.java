@@ -7,6 +7,10 @@ public class AuthorStorage implements Storage {
     private Author author;
     private int id;
     
+    public AuthorStorage() {
+        createLocal();
+    }
+    
     public void createLocal() {
         author = new Author("Joshua Bloch");
     }
