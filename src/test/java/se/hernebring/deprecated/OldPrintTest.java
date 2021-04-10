@@ -1,4 +1,4 @@
-package se.hernebring.unit;
+package se.hernebring.deprecated;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
+@Deprecated
 public class OldPrintTest {
 
     private static File tempFile = new File("print_test.tmp");

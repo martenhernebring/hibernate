@@ -1,17 +1,20 @@
-package se.hernebring.print;
+package se.hernebring.deprecated;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import se.hernebring.print.Printer;
 import se.hernebring.store.Client;
 
-public class ConfigPrinter implements Printer {
+@Deprecated
+public class OldConfigPrinter implements Printer {
     private final File tempFile;
     private final Client client;
     private final boolean ovning1;
 
-    public ConfigPrinter(File tempFile, Client client) {
+    public OldConfigPrinter(File tempFile, Client client) {
         this.tempFile = tempFile;
         this.client = client;
         Printer.disableIllegalAccessWarning();

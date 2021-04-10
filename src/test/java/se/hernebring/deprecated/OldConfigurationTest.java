@@ -1,4 +1,4 @@
-package se.hernebring.system;
+package se.hernebring.deprecated;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -16,7 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
-public class ConfigurationTest {
+@Deprecated
+public class OldConfigurationTest {
 
     private static List<String> lines;
 

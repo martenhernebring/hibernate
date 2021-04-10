@@ -2,7 +2,7 @@ package se.hernebring.app;
 
 import java.io.File;
 
-import se.hernebring.print.ConfigPrinter;
+import se.hernebring.deprecated.OldConfigPrinter;
 import se.hernebring.print.Printer;
 import se.hernebring.print.RelationalPrinter;
 import se.hernebring.print.SimplePrinter;
@@ -17,7 +17,7 @@ public class Main {
         Printer printer;
         if (args != null && args.length > 0 && !args[0].equals("")) {
             if(Character.isDigit(args[0].trim().charAt(0))) {
-                printer = new ConfigPrinter(new File("config_test.tmp"), new Client(args));
+                printer = new OldConfigPrinter(new File("config_test.tmp"), new Client(args));
             } else {
                 printer = new SimplePrinter(new File("print_test.tmp"), new Client(args));
             }
