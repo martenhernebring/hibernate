@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
-public class RelationalTest {
+public class HarnestTest {
 
     private static List<String> lines;
 
@@ -51,7 +51,22 @@ public class RelationalTest {
     }
 
     @Test
-    public void saveSameBook3timesVerifyId1() {
-        assertEquals("Start: Is Book null? true", lines.get(0).trim());
+    public void verifyNoBooksStoredInDatabase() {
+        assertEquals("Database: Is Book null? true", lines.get(0).trim());
+    }
+    
+    @Test
+    public void verifyNoAuthorStoredInDatabase() {
+        assertEquals("Database: Is Author null? true", lines.get(0).trim());
+    }
+    
+    @Test
+    public void verifyBookStoredLocally() {
+        assertEquals("Local storage: Is Book null? false", lines.get(1).trim());
+    }
+    
+    @Test
+    public void verifyAuthorStoredLocally() {
+        assertEquals("Local storage: Is Author null? false", lines.get(1).trim());
     }
 }

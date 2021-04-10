@@ -4,17 +4,17 @@ import java.lang.reflect.Field;
 
 import se.hernebring.domain.Title;
 import se.hernebring.store.Persistence;
-import se.hernebring.store.Store;
+import se.hernebring.store.Storage;
 
 @Deprecated
-public class OldStoreAdapter implements Store {
+public class OldBookStorage implements Storage {
 
     private Title title;
     private int id;
     // 0:id 1:title 2:isbn
     private static final int ISBN_FIELD = 2;
     
-    public OldStoreAdapter(String[] args) {
+    public OldBookStorage(String[] args) {
         if (Character.isDigit(args[0].trim().charAt(0))) {
             reset();
         } else {
@@ -41,10 +41,9 @@ public class OldStoreAdapter implements Store {
         return title == null ? true : false;
     }
 
-    @Override
     public void getId(int id) {
         this.id = id;
-        title = OldPersistence.get(id);
+        title = OldPersistence.getOldBook(id);
     }
     
     @Override

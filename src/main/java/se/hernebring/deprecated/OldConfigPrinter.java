@@ -10,19 +10,19 @@ import se.hernebring.print.Printer;
 @Deprecated
 public class OldConfigPrinter implements Printer {
     private final File tempFile;
-    private final OldStoreAdapter oldStoreAdapter;
+    private final OldBookStorage oldBookStorage;
     private final boolean ovning1;
 
-    public OldConfigPrinter(File tempFile, OldStoreAdapter oldStoreAdapter) {
+    public OldConfigPrinter(File tempFile, OldBookStorage oldBookStorage) {
         this.tempFile = tempFile;
-        this.oldStoreAdapter = oldStoreAdapter;
+        this.oldBookStorage = oldBookStorage;
         Printer.disableIllegalAccessWarning();
-        oldStoreAdapter.getId(1);
-        if (oldStoreAdapter.isNull()) {
+        oldBookStorage.getId(1);
+        if (oldBookStorage.isNull()) {
             ovning1 = true;
-            oldStoreAdapter.reset();
-            oldStoreAdapter.save(3);
-            oldStoreAdapter.getId(3);
+            oldBookStorage.reset();
+            oldBookStorage.save(3);
+            oldBookStorage.getId(3);
         } else {
             ovning1 = false; // 2+
         }
@@ -31,31 +31,31 @@ public class OldConfigPrinter implements Printer {
     @Override
     public void print() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            writer.write(oldStoreAdapter.toString() + '\n');
-            oldStoreAdapter.getId(2);
-            oldStoreAdapter.updateOldAuthor("Joshua J. Bloch");
-            writer.write(oldStoreAdapter.toString() + '\n');
-            oldStoreAdapter.getId(3);
+            writer.write(oldBookStorage.toString() + '\n');
+            oldBookStorage.getId(2);
+            oldBookStorage.updateOldAuthor("Joshua J. Bloch");
+            writer.write(oldBookStorage.toString() + '\n');
+            oldBookStorage.getId(3);
             if (ovning1) {
-                oldStoreAdapter.delete();
+                oldBookStorage.delete();
             }
-            writer.write("Is OldBook null? " + Boolean.toString(oldStoreAdapter.isNull()) + '\n');
+            writer.write("Is OldBook null? " + Boolean.toString(oldBookStorage.isNull()) + '\n');
             // Övning 2
-            oldStoreAdapter.getId(1);
-            writer.write(oldStoreAdapter.getOldRegisteredName(false) + '\n');
-            writer.write(oldStoreAdapter.getOldRegisteredName(true) + '\n');
+            oldBookStorage.getId(1);
+            writer.write(oldBookStorage.getOldRegisteredName(false) + '\n');
+            writer.write(oldBookStorage.getOldRegisteredName(true) + '\n');
             // Övning 3
-            oldStoreAdapter.getId(2);
-            oldStoreAdapter.updateOldAuthor("Joshua Bloch");
-            oldStoreAdapter.save();
-            oldStoreAdapter.getId(4);
-            writer.write(oldStoreAdapter.toString() + '\n');
+            oldBookStorage.getId(2);
+            oldBookStorage.updateOldAuthor("Joshua Bloch");
+            oldBookStorage.save();
+            oldBookStorage.getId(4);
+            writer.write(oldBookStorage.toString() + '\n');
             Integer nop = 416;
-            oldStoreAdapter.updateOldPages(nop);
-            oldStoreAdapter.save();
-            oldStoreAdapter.getId(5);
+            oldBookStorage.updateOldPages(nop);
+            oldBookStorage.save();
+            oldBookStorage.getId(5);
             try {
-                writer.write(oldStoreAdapter.getOldPages() + '\n');
+                writer.write(oldBookStorage.getOldPages() + '\n');
             } catch (NullPointerException ex) {
                 writer.write("NullPointerException thrown\n");
             }

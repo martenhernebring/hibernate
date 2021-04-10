@@ -9,7 +9,7 @@ import se.hernebring.store.Persistence;
 @Deprecated
 class OldPersistence extends Persistence {
 
-    static Title get(int id) {
+    static Title getOldBook(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();

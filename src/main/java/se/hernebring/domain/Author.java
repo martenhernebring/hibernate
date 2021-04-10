@@ -10,6 +10,7 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/*A book can be written by only one author but an author can write one or more books.*/
 @Entity
 public class Author {
     

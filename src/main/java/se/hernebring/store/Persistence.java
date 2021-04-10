@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
 import se.hernebring.domain.Title;
 
@@ -33,7 +34,12 @@ public class Persistence {
         session.close();
     }
     
-    static Title get(int id) {
+    static void save(Author author) {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    static Title getBook(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
@@ -41,6 +47,11 @@ public class Persistence {
         transaction.commit();
         session.close();
         return book;
+    }
+    
+    static Author getAuthor(int id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     static void delete(int id) {
@@ -52,4 +63,5 @@ public class Persistence {
         transaction.commit();
         session.close();
     }
+
 }

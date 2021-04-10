@@ -40,10 +40,17 @@ public class Book implements Title {
     public String getTitle() {
         return title;
     }
-
+    
+    public Author getAuthor() {
+        return author;
+    }
     @Override
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public void setAuthor(Author author) {
+        this.author = author;
     }
     
     @Override
@@ -68,14 +75,6 @@ public class Book implements Title {
 
     public int compareTo(Book book) {
         return new CompareToBuilder().append(this.title, book.title).toComparison();
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-    
-    public Author getAuthor() {
-        return author;
     }
 
 }

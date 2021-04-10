@@ -3,12 +3,12 @@ package se.hernebring.store;
 import se.hernebring.domain.Book;
 import se.hernebring.domain.Title;
 
-public class StoreAdapter implements Store {
+public class BookStorage implements Storage {
 
     private Title title;
     private int id;
-
-    public StoreAdapter() {
+    
+    public void createLocalBook() {
         title = new Book("Effective Java 3rd Edition");
     }
 
@@ -22,7 +22,7 @@ public class StoreAdapter implements Store {
 
     public void getId(int id) {
         this.id = id;
-        title = Persistence.get(id);
+        title = Persistence.getBook(id);
     }
     
     public void delete() {
