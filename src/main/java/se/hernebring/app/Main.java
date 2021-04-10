@@ -22,8 +22,6 @@ public class Main {
                 printer = new SimplePrinter(new File("print_test.tmp"), new Client(args));
             }
         } else {
-            //String[] ovningar = { "3" };
-            //printer = new ConfigPrinter(new File("config_test.tmp"), new Client(ovningar));
             printer = new RelationalPrinter(new File("relational_test.tmp"), new Client());
         }
         printer.print();

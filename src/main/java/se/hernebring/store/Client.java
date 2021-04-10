@@ -55,11 +55,11 @@ public class Client {
 
     public void getId(int id) {
         this.id = id;
-        title = Server.get(id, title);
+        title = OldServer.get(id, title);
     }
     
     public void delete() {
-        Server.delete(id);
+        OldServer.delete(id);
         this.id = -1;
         title = null;
     }
@@ -78,7 +78,7 @@ public class Client {
 
     public String getOldRegisteredName(boolean storage) {
         if (storage) {
-            return Server.getRegisteredName(getOldRegisteredName(false));
+            return OldServer.getRegisteredName(getOldRegisteredName(false));
         } else {
             Field[] allFields = OldBook.class.getDeclaredFields();
             return allFields[ISBN_FIELD].getName();
