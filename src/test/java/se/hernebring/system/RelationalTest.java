@@ -1,5 +1,6 @@
 package se.hernebring.system;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
@@ -28,11 +29,14 @@ public class RelationalTest {
         try {
             Main.main(noArgs);
         } catch (MappingException ex) {
-            fail("OldBook was not saved. Problem with property access in code and field access in database.");
+            fail("Book was not saved. Problem with property access in code and field access in database.");
+            ex.printStackTrace();
         } catch (ClassLoadingException ex) {
-            fail("OldBook was not saved. Problem with database-jar/dependency.");
+            fail("Book was not saved. Problem with database-jar/dependency.");
+            ex.printStackTrace();
         } catch (NullPointerException ex) {
-            fail("Request book does not exist. Was it maybe deleted previously?");
+            fail("Requested book does not exist.");
+            ex.printStackTrace();
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
             lines = reader.lines().collect(Collectors.toList());
@@ -48,7 +52,6 @@ public class RelationalTest {
 
     @Test
     public void saveSameBook3timesVerifyId1() {
-        //<OldBook[author=Joshua Bloch,title=Effective Java 3rd Edition]>
-        //assertEquals("NullPointerException thrown", lines.get(0).trim());
+        assertEquals("Start: Is Book null? true", lines.get(0).trim());
     }
 }

@@ -39,11 +39,7 @@ public class OldConfigPrinter implements Printer {
             if (ovning1) {
                 oldStoreAdapter.delete();
             }
-            try {
-                writer.write(oldStoreAdapter.toString() + '\n');
-            } catch (NullPointerException ex) {
-                writer.write("NullPointerException thrown\n");
-            }
+            writer.write("Is OldBook null? " + Boolean.toString(oldStoreAdapter.isNull()) + '\n');
             // Övning 2
             oldStoreAdapter.getId(1);
             writer.write(oldStoreAdapter.getOldRegisteredName(false) + '\n');

@@ -59,7 +59,7 @@ public class OldConfigurationTest {
 
     @Test
     public void deleteOneBook() {
-        assertEquals("NullPointerException thrown", lines.get(2).trim());
+        assertEquals("Is OldBook null? true", lines.get(2).trim());
     }
 
     @Test

@@ -22,11 +22,7 @@ public class RelationalPrinter implements Printer {
     @Override
     public void print() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            try {
-                writer.write(storeAdapter.toString() + '\n');
-            } catch (NullPointerException ex) {
-                writer.write("NullPointerException thrown\n");
-            }
+            writer.write("Start: Is Book null? " + Boolean.toString(storeAdapter.isNull()) + '\n');
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
