@@ -29,16 +29,19 @@ public class ConfigurationTest {
             Main.main(ovningar);
         } catch (MappingException ex) {
             fail("OldBook was not saved. Problem with property access in code and field access in database.");
+            ex.printStackTrace();
         } catch (ClassLoadingException ex) {
             fail("OldBook was not saved. Problem with database-jar/dependency.");
+            ex.printStackTrace();
         } catch (NullPointerException ex) {
             fail("Request book does not exist. Was it maybe deleted previously?");
+            ex.printStackTrace();
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(tempFile))) {
             lines = reader.lines().collect(Collectors.toList());
         } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-            fail();
+            fail("Problems finding/reading file.");
+            ex.printStackTrace();
         }
         tempFile.deleteOnExit();
     }

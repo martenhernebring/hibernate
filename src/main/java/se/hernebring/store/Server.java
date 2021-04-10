@@ -38,7 +38,7 @@ public class Server {
         var factory = Server.getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        title = (Title) session.get(title.getClass(), id);
+        title = (OldBook) session.get(OldBook.class, id);
         transaction.commit();
         session.close();
         return title;
