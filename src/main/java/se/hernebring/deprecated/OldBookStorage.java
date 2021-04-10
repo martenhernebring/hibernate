@@ -2,7 +2,6 @@ package se.hernebring.deprecated;
 
 import java.lang.reflect.Field;
 
-import se.hernebring.store.Persistence;
 import se.hernebring.store.Storage;
 
 @Deprecated

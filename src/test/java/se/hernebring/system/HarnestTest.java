@@ -88,5 +88,30 @@ public class HarnestTest {
     @Test
     public void verifyAuthorStoredInDatabase() {
         assertEquals("Database: Is Author empty? false", lines.get(7).trim());
-    } 
+    }
+    
+    @Test
+    public void printBookStoredInDatabase() {
+        assertEquals("Printing out book stored in database: Book[title=Effective Java 3rd Edition]", lines.get(8).trim());
+    }
+    
+    @Test
+    public void printAuthorOfBookStoredInDatabase() {
+        assertEquals("Name of the author for this book: Book[title=Effective Java 3rd Edition]", lines.get(9).trim());
+    }
+    
+    @Test
+    public void verifyAuthorIsAllocatedInSecondBook() {
+        assertEquals("Book: Is Author null? false", lines.get(10).trim());
+    }
+    
+    @Test
+    public void verifySecondBookStoredInDatabase() {
+        assertEquals("Database: Was the second book saved? true", lines.get(11).trim());
+    }
+    
+    @Test
+    public void verifySecondBookDeletedFromDatabase() {
+        assertEquals("Database: Was the second book deleted? true", lines.get(12).trim());
+    }
 }

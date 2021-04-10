@@ -12,8 +12,16 @@ public class BookStorage implements Storage {
         book = new Book("Effective Java 3rd Edition");
     }
     
+    public void createLocal(String title) {
+        book = new Book(title);
+    }
+    
     public void allocate(Author author) {
         book.setAuthor(author);
+    }
+    
+    public String getAuthorName() {
+        return book.getAuthor().toString();
     }
 
     public void save() {
@@ -35,6 +43,14 @@ public class BookStorage implements Storage {
     
     public void delete() {
         Persistence.delete(id);
+        this.id = -1;
+        book = null;
+    }
+    
+    void delete(boolean force) {
+        if(force) {
+            Persistence.delete();
+        }
         this.id = -1;
         book = null;
     }

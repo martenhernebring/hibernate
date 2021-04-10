@@ -43,6 +43,17 @@ public class HarnestPrinter implements Printer {
             authorStorage.getId(1);
             writer.write("Database: Is Book empty? " + Boolean.toString(bookStorage.isNull()) + '\n');
             writer.write("Database: Is Author empty? " + Boolean.toString(authorStorage.isNull()) + '\n');
+            writer.write("Printing out book stored in database: " + bookStorage + '\n');
+            writer.write("Name of the author for this book: " + bookStorage + '\n');
+            bookStorage.createLocal("Java Puzzlers With Access Codes");
+            bookStorage.allocate(authorStorage.getAuthor());
+            writer.write("Book: Is Author null? " + bookStorage.authorIsNull() + '\n');
+            bookStorage.save();
+            bookStorage.getId(2);
+            writer.write("Database: Was the second book saved? " + Boolean.toString(!bookStorage.isNull()) + '\n');
+            bookStorage.delete();
+            bookStorage.getId(2);
+            writer.write("Database: Was the second book deleted? " + Boolean.toString(bookStorage.isNull()) + '\n');
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }

@@ -75,4 +75,15 @@ public class Persistence {
         session.close();
     }
 
+    static void delete() {
+        //delete id 1 for testing purposes
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        Book book = (Book) session.get(Book.class, 1);
+        session.delete(book);
+        transaction.commit();
+        session.close();
+    }
+
 }
