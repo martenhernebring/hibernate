@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
-public class PrintTest {
+public class OldPrintTest {
 
     private static File tempFile = new File("print_test.tmp");
 

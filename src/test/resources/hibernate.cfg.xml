@@ -13,7 +13,7 @@
 		<property name="format_sql">false</property>
 		<property name="use_sql_coments">false</property>
 		<property name="hbm2ddl.auto">create</property>
-		<mapping class="se.hernebring.domain.OldBook" />
+		<mapping class="se.hernebring.deprecated.OldBook" />
 		<mapping class="se.hernebring.domain.Book" />
 		<mapping class="se.hernebring.domain.Author" />
 	</session-factory>

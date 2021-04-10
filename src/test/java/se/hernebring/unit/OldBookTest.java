@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import se.hernebring.domain.OldBook;
+import se.hernebring.deprecated.OldBook;
 
 public class OldBookTest {
 

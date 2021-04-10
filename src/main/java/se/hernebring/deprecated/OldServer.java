@@ -1,11 +1,12 @@
-package se.hernebring.store;
+package se.hernebring.deprecated;
 
 import org.hibernate.Session;
 import org.hibernate.persister.entity.AbstractEntityPersister;
 
-import se.hernebring.domain.OldBook;
 import se.hernebring.domain.Title;
+import se.hernebring.store.Server;
 
+@Deprecated
 public class OldServer {
 
     public static Title get(int id, Title title) {

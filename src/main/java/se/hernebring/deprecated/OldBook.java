@@ -1,4 +1,4 @@
-package se.hernebring.domain;
+package se.hernebring.deprecated;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,9 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import se.hernebring.domain.Title;
+
+@Deprecated
 @Entity
 @Table(name = "OLD_BOOK")
 public class OldBook implements Title {

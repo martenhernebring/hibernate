@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import se.hernebring.domain.OldBook;
+import se.hernebring.deprecated.OldBook;
 import se.hernebring.domain.Title;
 
 public class Server {

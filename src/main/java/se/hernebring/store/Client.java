@@ -2,8 +2,9 @@ package se.hernebring.store;
 
 import java.lang.reflect.Field;
 
+import se.hernebring.deprecated.OldBook;
+import se.hernebring.deprecated.OldServer;
 import se.hernebring.domain.Book;
-import se.hernebring.domain.OldBook;
 import se.hernebring.domain.Title;
 
 public class Client {

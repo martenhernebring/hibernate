@@ -14,7 +14,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Printer printer = null;
+        Printer printer;
         if (args != null && args.length > 0 && !args[0].equals("")) {
             if(Character.isDigit(args[0].trim().charAt(0))) {
                 printer = new ConfigPrinter(new File("config_test.tmp"), new Client(args));
