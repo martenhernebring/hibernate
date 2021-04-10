@@ -6,14 +6,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import se.hernebring.deprecated.OldBook;
+import se.hernebring.domain.Book;
 import se.hernebring.domain.Title;
 
-public class Server {
+public class Persistence {
 
     private static SessionFactory sessionFactory = null;
 
-    public static SessionFactory getSessionFactory() {
+    protected static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration();
             configuration.configure();
@@ -33,22 +33,22 @@ public class Server {
         session.close();
     }
     
-    public static Title get(int id, Title title) {
+    static Title get(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        title = (OldBook) session.get(OldBook.class, id);
+        Book book = (Book) session.get(Book.class, id);
         transaction.commit();
         session.close();
-        return title;
+        return book;
     }
 
-    public static void delete(int id) {
+    static void delete(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        OldBook oldBook = (OldBook) session.get(OldBook.class, id);
-        session.delete(oldBook);
+        Book book = (Book) session.get(Book.class, id);
+        session.delete(book);
         transaction.commit();
         session.close();
     }

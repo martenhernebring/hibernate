@@ -4,23 +4,23 @@ import org.hibernate.Session;
 import org.hibernate.persister.entity.AbstractEntityPersister;
 
 import se.hernebring.domain.Title;
-import se.hernebring.store.Server;
+import se.hernebring.store.Persistence;
 
 @Deprecated
-public class OldServer {
+class OldPersistence extends Persistence {
 
-    public static Title get(int id, Title title) {
-        var factory = Server.getSessionFactory();
+    static Title get(int id) {
+        var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        title = (OldBook) session.get(OldBook.class, id);
+        OldBook ob = (OldBook) session.get(OldBook.class, id);
         transaction.commit();
         session.close();
-        return title;
+        return ob;
     }
 
-    public static void delete(int id) {
-        var factory = Server.getSessionFactory();
+    static void delete(int id) {
+        var factory = Persistence.getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
         OldBook oldBook = (OldBook) session.get(OldBook.class, id);
@@ -29,8 +29,8 @@ public class OldServer {
         session.close();
     }
 
-    public static String getRegisteredName(String propertyName) {
-        var factory = Server.getSessionFactory();
+    static String getRegisteredName(String propertyName) {
+        var factory = Persistence.getSessionFactory();
         Session session = factory.openSession();
         var aep = ((AbstractEntityPersister) session.getSessionFactory().getClassMetadata(OldBook.class));
         String[] properties = aep.getPropertyNames();

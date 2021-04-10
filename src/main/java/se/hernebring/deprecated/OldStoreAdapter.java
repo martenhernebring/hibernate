@@ -1,29 +1,20 @@
-package se.hernebring.store;
+package se.hernebring.deprecated;
 
 import java.lang.reflect.Field;
 
-import se.hernebring.deprecated.OldBook;
-import se.hernebring.deprecated.OldServer;
-import se.hernebring.domain.Book;
 import se.hernebring.domain.Title;
+import se.hernebring.store.Persistence;
+import se.hernebring.store.Store;
 
-public class Client {
+@Deprecated
+public class OldStoreAdapter implements Store {
 
     private Title title;
     private int id;
     // 0:id 1:title 2:isbn
     private static final int ISBN_FIELD = 2;
-
-    public Client() {
-        title = new Book("Effective Java 3rd Edition");
-    }
-
-    public void reset() {
-        title = new OldBook("Effective Java 3rd Edition", 9780134685991L, "Joshua Bloch");
-        this.id = 0;
-    }
-
-    public Client(String[] args) {
+    
+    public OldStoreAdapter(String[] args) {
         if (Character.isDigit(args[0].trim().charAt(0))) {
             reset();
         } else {
@@ -35,34 +26,38 @@ public class Client {
         }
     }
 
+    public void reset() {
+        title = new OldBook("Effective Java 3rd Edition", 9780134685991L, "Joshua Bloch");
+        this.id = 0;
+    }
+
     @Override
-    public String toString() {
-        return title.toString();
-    }
-
-    public void save(int times) {
-        for (int i = 0; i < times; i++) {
-            save();
-        }
-    }
-
     public void save() {
-        Server.save(title);
+        Persistence.save(title);
     }
 
+    @Override
     public boolean isNull() {
         return title == null ? true : false;
     }
 
+    @Override
     public void getId(int id) {
         this.id = id;
-        title = OldServer.get(id, title);
+        title = OldPersistence.get(id);
     }
     
+    @Override
     public void delete() {
-        OldServer.delete(id);
+        OldPersistence.delete(id);
         this.id = -1;
         title = null;
+    }
+    
+    public void save(int times) {
+        for (int i = 0; i < times; i++) {
+            save();
+        }
     }
 
     public void updateOldAuthor(String name) {
@@ -79,11 +74,16 @@ public class Client {
 
     public String getOldRegisteredName(boolean storage) {
         if (storage) {
-            return OldServer.getRegisteredName(getOldRegisteredName(false));
+            return OldPersistence.getRegisteredName(getOldRegisteredName(false));
         } else {
             Field[] allFields = OldBook.class.getDeclaredFields();
             return allFields[ISBN_FIELD].getName();
         }
+    }
+    
+    @Override
+    public String toString() {
+        return title.toString();
     }
 
 }
