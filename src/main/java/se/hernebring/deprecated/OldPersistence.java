@@ -3,13 +3,12 @@ package se.hernebring.deprecated;
 import org.hibernate.Session;
 import org.hibernate.persister.entity.AbstractEntityPersister;
 
-import se.hernebring.domain.Title;
 import se.hernebring.store.Persistence;
 
 @Deprecated
 class OldPersistence extends Persistence {
 
-    static Title getOldBook(int id) {
+    static OldBook getOldBook(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
@@ -17,6 +16,15 @@ class OldPersistence extends Persistence {
         transaction.commit();
         session.close();
         return ob;
+    }
+    
+    public static void save(OldBook oldBook) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        session.save(oldBook);
+        transaction.commit();
+        session.close();
     }
 
     static void delete(int id) {

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-public class Book implements Title {
+public class Book {
     // Property access with Auto generate id to be used as primary key required by Hibernate
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,12 +31,10 @@ public class Book implements Title {
     //Hibernate requirement
     public Book() {}
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
@@ -44,7 +42,7 @@ public class Book implements Title {
     public Author getAuthor() {
         return author;
     }
-    @Override
+    
     public void setTitle(String title) {
         this.title = title;
     }

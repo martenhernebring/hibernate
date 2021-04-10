@@ -2,55 +2,54 @@ package se.hernebring.deprecated;
 
 import java.lang.reflect.Field;
 
-import se.hernebring.domain.Title;
 import se.hernebring.store.Persistence;
 import se.hernebring.store.Storage;
 
 @Deprecated
 public class OldBookStorage implements Storage {
 
-    private Title title;
+    private OldBook oldBook;
     private int id;
-    // 0:id 1:title 2:isbn
+    // 0:id 1:oldBook 2:isbn
     private static final int ISBN_FIELD = 2;
     
     public OldBookStorage(String[] args) {
         if (Character.isDigit(args[0].trim().charAt(0))) {
             reset();
         } else {
-            title = new OldBook(args[0]);
+            oldBook = new OldBook(args[0]);
             if (args.length > 2) {
-                ((OldBook) title).setIsbn(Long.parseLong(args[1]));
-                ((OldBook) title).setAuthor(args[2]);
+                ((OldBook) oldBook).setIsbn(Long.parseLong(args[1]));
+                ((OldBook) oldBook).setAuthor(args[2]);
             }
         }
     }
 
     public void reset() {
-        title = new OldBook("Effective Java 3rd Edition", 9780134685991L, "Joshua Bloch");
+        oldBook = new OldBook("Effective Java 3rd Edition", 9780134685991L, "Joshua Bloch");
         this.id = 0;
     }
 
     @Override
     public void save() {
-        Persistence.save(title);
+        OldPersistence.save(oldBook);
     }
 
     @Override
     public boolean isNull() {
-        return title == null ? true : false;
+        return oldBook == null ? true : false;
     }
 
     public void getId(int id) {
         this.id = id;
-        title = OldPersistence.getOldBook(id);
+        oldBook = OldPersistence.getOldBook(id);
     }
     
     @Override
     public void delete() {
         OldPersistence.delete(id);
         this.id = -1;
-        title = null;
+        oldBook = null;
     }
     
     public void save(int times) {
@@ -60,15 +59,15 @@ public class OldBookStorage implements Storage {
     }
 
     public void updateOldAuthor(String name) {
-        ((OldBook) title).setAuthor(name);
+        ((OldBook) oldBook).setAuthor(name);
     }
 
     public void updateOldPages(Integer numberOfPages) {
-        ((OldBook) title).setNumberOfPages(numberOfPages);
+        ((OldBook) oldBook).setNumberOfPages(numberOfPages);
     }
 
     public Integer getOldPages() {
-        return ((OldBook) title).getNumberOfPages();
+        return ((OldBook) oldBook).getNumberOfPages();
     }
 
     public String getOldRegisteredName(boolean storage) {
@@ -82,7 +81,7 @@ public class OldBookStorage implements Storage {
     
     @Override
     public String toString() {
-        return title.toString();
+        return oldBook.toString();
     }
 
 }

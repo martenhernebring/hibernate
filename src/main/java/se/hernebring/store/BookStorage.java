@@ -1,39 +1,47 @@
 package se.hernebring.store;
 
+import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
-import se.hernebring.domain.Title;
 
 public class BookStorage implements Storage {
 
-    private Title title;
+    private Book book;
     private int id;
     
-    public void createLocalBook() {
-        title = new Book("Effective Java 3rd Edition");
+    public void createLocal() {
+        book = new Book("Effective Java 3rd Edition");
+    }
+    
+    public void allocate(Author author) {
+        book.setAuthor(author);
     }
 
     public void save() {
-        Persistence.save(title);
+        Persistence.save(book);
     }
 
     public boolean isNull() {
-        return title == null ? true : false;
+        return book == null ? true : false;
+    }
+    
+    public boolean authorIsNull() {
+        return book.getAuthor() == null ? true : false;
     }
 
     public void getId(int id) {
         this.id = id;
-        title = Persistence.getBook(id);
+        book = (Book) Persistence.getBook(id);
     }
     
     public void delete() {
         Persistence.delete(id);
         this.id = -1;
-        title = null;
+        book = null;
     }
     
     @Override
     public String toString() {
-        return title.toString();
+        return book.toString();
     }
 
 }

@@ -8,7 +8,6 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
-import se.hernebring.domain.Title;
 
 public class Persistence {
 
@@ -24,22 +23,26 @@ public class Persistence {
         }
         return sessionFactory;
     }
-
-    public static void save(Title title) {
+    
+    static void save(Author author) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
-        session.save(title);
+        session.save(author);
+        transaction.commit();
+        session.close();
+    }
+
+    static void save(Book book) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        session.save(book);
         transaction.commit();
         session.close();
     }
     
-    static void save(Author author) {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    static Title getBook(int id) {
+    static Book getBook(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
@@ -50,11 +53,19 @@ public class Persistence {
     }
     
     static Author getAuthor(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        Author author = (Author) session.get(Author.class, id);
+        transaction.commit();
+        session.close();
+        return author;
     }
 
     static void delete(int id) {
+        if(id == 1) {
+            throw new IllegalArgumentException("Id 1 is used for checking empty databases");
+        }
         var factory = getSessionFactory();
         Session session = factory.openSession();
         var transaction = session.beginTransaction();

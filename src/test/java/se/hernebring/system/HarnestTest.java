@@ -52,21 +52,41 @@ public class HarnestTest {
 
     @Test
     public void verifyNoBooksStoredInDatabase() {
-        assertEquals("Database: Is Book null? true", lines.get(0).trim());
+        assertEquals("Database: Is Book empty? true", lines.get(0).trim());
     }
     
     @Test
     public void verifyNoAuthorStoredInDatabase() {
-        assertEquals("Database: Is Author null? true", lines.get(0).trim());
+        assertEquals("Database: Is Author empty? true", lines.get(1).trim());
     }
     
     @Test
     public void verifyBookStoredLocally() {
-        assertEquals("Local storage: Is Book null? false", lines.get(1).trim());
+        assertEquals("Local storage: Is Book null? false", lines.get(2).trim());
     }
     
     @Test
     public void verifyAuthorStoredLocally() {
-        assertEquals("Local storage: Is Author null? false", lines.get(1).trim());
+        assertEquals("Local storage: Is Author null? false", lines.get(3).trim());
     }
+    
+    @Test
+    public void verifyNoAuthorAllocatedInBook() {
+        assertEquals("Book: Is Author null? true", lines.get(4).trim());
+    }
+    
+    @Test
+    public void verifyAuthorIsAllocatedInBook() {
+        assertEquals("Book: Is Author null? false", lines.get(5).trim());
+    }
+    
+    @Test
+    public void verifyBooksStoredInDatabase() {
+        assertEquals("Database: Is Book empty? false", lines.get(6).trim());
+    }
+    
+    @Test
+    public void verifyAuthorStoredInDatabase() {
+        assertEquals("Database: Is Author empty? false", lines.get(7).trim());
+    } 
 }

@@ -25,10 +25,24 @@ public class HarnestPrinter implements Printer {
     public void print() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
             bookStorage.getId(1);
+            writer.write("Database: Is Book empty? " + Boolean.toString(bookStorage.isNull()) + '\n');
             authorStorage.getId(1);
-            writer.write("Database: Is Book null? " + Boolean.toString(bookStorage.isNull()) + '\n');
-            bookStorage.createLocalBook();
+            writer.write("Database: Is Author empty? " + Boolean.toString(authorStorage.isNull()) + '\n');
+            bookStorage.createLocal();
             writer.write("Local storage: Is Book null? " + Boolean.toString(bookStorage.isNull()) + '\n');
+            authorStorage.createLocal();
+            writer.write("Local storage: Is Author null? " + Boolean.toString(authorStorage.isNull()) + '\n');
+            //Book has Many to One relation to Author
+            writer.write("Book: Is Author null? " + bookStorage.authorIsNull() + '\n');
+            bookStorage.allocate(authorStorage.getAuthor());
+            writer.write("Book: Is Author null? " + bookStorage.authorIsNull() + '\n');
+            authorStorage.save();
+            bookStorage.save();
+            //Check if local data was saved with Id1
+            bookStorage.getId(1);
+            authorStorage.getId(1);
+            writer.write("Database: Is Book empty? " + Boolean.toString(bookStorage.isNull()) + '\n');
+            writer.write("Database: Is Author empty? " + Boolean.toString(authorStorage.isNull()) + '\n');
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
