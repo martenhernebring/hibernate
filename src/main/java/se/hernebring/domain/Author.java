@@ -1,9 +1,14 @@
 package se.hernebring.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -21,14 +26,14 @@ public class Author {
 
     private String name;
     private String address;
-    //@ManyToOne
-    //@JoinColumn(name="BOOK_FK")
-    //private OldBook oldBook;
+    @OneToMany
+    private List<Book> books;
     @Transient
     private int age;
 
     public Author(String name) {
         this.name = name;
+        this.books = new ArrayList<>();
     }
 
     // Hibernate requirement
@@ -43,12 +48,20 @@ public class Author {
         return address;
     }
 
+    public int getAge() {
+        return age;
+    }
+    
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public int getAge() {
-        return age;
+    
+    public void add(Book book) {
+        books.add(book);
+    }
+    
+    public List<Book> getBooks() {
+        return Collections.unmodifiableList(books);
     }
     
     @Override

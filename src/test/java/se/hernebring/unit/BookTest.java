@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
 
 public class BookTest {
@@ -55,13 +53,6 @@ public class BookTest {
     public void changeTitle() {
         title2.setTitle("Other");
         assertNotEquals(title.getTitle(), title2.getTitle());
-    }
-    
-    @Test
-    public void addAuthor() {
-        Author author = new Author("Joshua Bloch");
-        title.setAuthor(author);
-        assertEquals("Joshua Bloch", title.getAuthor().getName());
     }
 
 }

@@ -10,19 +10,19 @@ import se.hernebring.print.Printer;
 @Deprecated
 public class OldConfigPrinter implements Printer {
     private final File tempFile;
-    private final OldBookStorage oldBookStorage;
+    private final OldBookController oldBookController;
     private final boolean ovning1;
 
-    public OldConfigPrinter(File tempFile, OldBookStorage oldBookStorage) {
+    public OldConfigPrinter(File tempFile, OldBookController oldBookController) {
         this.tempFile = tempFile;
-        this.oldBookStorage = oldBookStorage;
+        this.oldBookController = oldBookController;
         Printer.disableIllegalAccessWarning();
-        oldBookStorage.getId(1);
-        if (oldBookStorage.isNull()) {
+        oldBookController.getId(1);
+        if (oldBookController.isNull()) {
             ovning1 = true;
-            oldBookStorage.reset();
-            oldBookStorage.save(3);
-            oldBookStorage.getId(3);
+            oldBookController.reset();
+            oldBookController.save(3);
+            oldBookController.getId(3);
         } else {
             ovning1 = false; // 2+
         }
@@ -31,31 +31,31 @@ public class OldConfigPrinter implements Printer {
     @Override
     public void print() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            writer.write(oldBookStorage.toString() + '\n');
-            oldBookStorage.getId(2);
-            oldBookStorage.updateOldAuthor("Joshua J. Bloch");
-            writer.write(oldBookStorage.toString() + '\n');
-            oldBookStorage.getId(3);
+            writer.write(oldBookController.toString() + '\n');
+            oldBookController.getId(2);
+            oldBookController.updateOldAuthor("Joshua J. Bloch");
+            writer.write(oldBookController.toString() + '\n');
+            oldBookController.getId(3);
             if (ovning1) {
-                oldBookStorage.delete();
+                oldBookController.delete();
             }
-            writer.write("Is OldBook null? " + Boolean.toString(oldBookStorage.isNull()) + '\n');
+            writer.write("Is OldBook null? " + Boolean.toString(oldBookController.isNull()) + '\n');
             // Övning 2
-            oldBookStorage.getId(1);
-            writer.write(oldBookStorage.getOldRegisteredName(false) + '\n');
-            writer.write(oldBookStorage.getOldRegisteredName(true) + '\n');
+            oldBookController.getId(1);
+            writer.write(oldBookController.getOldRegisteredName(false) + '\n');
+            writer.write(oldBookController.getOldRegisteredName(true) + '\n');
             // Övning 3
-            oldBookStorage.getId(2);
-            oldBookStorage.updateOldAuthor("Joshua Bloch");
-            oldBookStorage.save();
-            oldBookStorage.getId(4);
-            writer.write(oldBookStorage.toString() + '\n');
+            oldBookController.getId(2);
+            oldBookController.updateOldAuthor("Joshua Bloch");
+            oldBookController.save();
+            oldBookController.getId(4);
+            writer.write(oldBookController.toString() + '\n');
             Integer nop = 416;
-            oldBookStorage.updateOldPages(nop);
-            oldBookStorage.save();
-            oldBookStorage.getId(5);
+            oldBookController.updateOldPages(nop);
+            oldBookController.save();
+            oldBookController.getId(5);
             try {
-                writer.write(oldBookStorage.getOldPages() + '\n');
+                writer.write(oldBookController.getOldPages() + '\n');
             } catch (NullPointerException ex) {
                 writer.write("NullPointerException thrown\n");
             }

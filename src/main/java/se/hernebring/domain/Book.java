@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -19,10 +17,6 @@ public class Book {
     private int id;
 
     private String title;
-    
-    @ManyToOne
-    @JoinColumn(name="AUTHOR_FK")
-    private Author author;
 
     public Book(String title) {
         this.title = title;
@@ -39,16 +33,8 @@ public class Book {
         return title;
     }
     
-    public Author getAuthor() {
-        return author;
-    }
-    
     public void setTitle(String title) {
         this.title = title;
-    }
-    
-    public void setAuthor(Author author) {
-        this.author = author;
     }
     
     @Override

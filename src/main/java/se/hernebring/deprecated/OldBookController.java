@@ -2,17 +2,17 @@ package se.hernebring.deprecated;
 
 import java.lang.reflect.Field;
 
-import se.hernebring.store.Storage;
+import se.hernebring.store.Controller;
 
 @Deprecated
-public class OldBookStorage implements Storage {
+public class OldBookController implements Controller {
 
     private OldBook oldBook;
     private int id;
     // 0:id 1:oldBook 2:isbn
     private static final int ISBN_FIELD = 2;
     
-    public OldBookStorage(String[] args) {
+    public OldBookController(String[] args) {
         if (Character.isDigit(args[0].trim().charAt(0))) {
             reset();
         } else {

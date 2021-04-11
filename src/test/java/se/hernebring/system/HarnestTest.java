@@ -51,67 +51,17 @@ public class HarnestTest {
     }
 
     @Test
-    public void verifyNoBooksStoredInDatabase() {
-        assertEquals("Database: Is Book empty? true", lines.get(0).trim());
+    public void verifyNothingStoredInDatabase() {
+        assertEquals("Database: Is Book and Author empty? true", lines.get(0).trim());
     }
     
     @Test
-    public void verifyNoAuthorStoredInDatabase() {
-        assertEquals("Database: Is Author empty? true", lines.get(1).trim());
+    public void verifyBookAndAuthorStoredInDatabase() {
+        assertEquals("Database: Is Book and Author not empty? true", lines.get(1).trim());
     }
     
     @Test
-    public void verifyBookStoredLocally() {
-        assertEquals("Local storage: Is Book null? false", lines.get(2).trim());
-    }
-    
-    @Test
-    public void verifyAuthorStoredLocally() {
-        assertEquals("Local storage: Is Author null? false", lines.get(3).trim());
-    }
-    
-    @Test
-    public void verifyNoAuthorAllocatedInBook() {
-        assertEquals("Book: Is Author null? true", lines.get(4).trim());
-    }
-    
-    @Test
-    public void verifyAuthorIsAllocatedInBook() {
-        assertEquals("Book: Is Author null? false", lines.get(5).trim());
-    }
-    
-    @Test
-    public void verifyBooksStoredInDatabase() {
-        assertEquals("Database: Is Book empty? false", lines.get(6).trim());
-    }
-    
-    @Test
-    public void verifyAuthorStoredInDatabase() {
-        assertEquals("Database: Is Author empty? false", lines.get(7).trim());
-    }
-    
-    @Test
-    public void printBookStoredInDatabase() {
-        assertEquals("Printing out book stored in database: Book[title=Effective Java 3rd Edition]", lines.get(8).trim());
-    }
-    
-    @Test
-    public void printAuthorOfBookStoredInDatabase() {
-        assertEquals("Name of the author for this book: Book[title=Effective Java 3rd Edition]", lines.get(9).trim());
-    }
-    
-    @Test
-    public void verifyAuthorIsAllocatedInSecondBook() {
-        assertEquals("Book: Is Author null? false", lines.get(10).trim());
-    }
-    
-    @Test
-    public void verifySecondBookStoredInDatabase() {
-        assertEquals("Database: Was the second book saved? true", lines.get(11).trim());
-    }
-    
-    @Test
-    public void verifySecondBookDeletedFromDatabase() {
-        assertEquals("Database: Was the second book deleted? true", lines.get(12).trim());
+    public void verifyAuthorHas3Books() {
+        assertEquals("Author: Number of books added? 3", lines.get(2).trim());
     }
 }

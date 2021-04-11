@@ -10,16 +10,16 @@ import se.hernebring.print.Printer;
 @Deprecated
 public class OldSimplePrinter implements Printer{
     private final File tempFile;
-    private final OldBookStorage oldBookStorage;
+    private final OldBookController oldBookController;
 
-    public OldSimplePrinter(File tempFile, OldBookStorage oldBookStorage) {
+    public OldSimplePrinter(File tempFile, OldBookController oldBookController) {
         this.tempFile = tempFile;
-        this.oldBookStorage = oldBookStorage;
+        this.oldBookController = oldBookController;
     }
 
     public void print() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            writer.write(oldBookStorage.toString());
+            writer.write(oldBookController.toString());
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }

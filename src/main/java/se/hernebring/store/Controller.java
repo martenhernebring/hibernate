@@ -1,6 +1,6 @@
 package se.hernebring.store;
 
-public interface Storage {
+public interface Controller {
     public void save();
     public void delete();
     public boolean isNull();

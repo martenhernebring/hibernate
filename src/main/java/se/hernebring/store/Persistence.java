@@ -1,5 +1,7 @@
 package se.hernebring.store;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -57,6 +59,14 @@ public class Persistence {
         Session session = factory.openSession();
         var transaction = session.beginTransaction();
         Author author = (Author) session.get(Author.class, id);
+        try {
+            List<Book> books = author.getBooks();
+            for(Book book: books) {
+                System.out.println(book);
+            }
+        } catch (NullPointerException ex) {
+            //print nothing
+        }
         transaction.commit();
         session.close();
         return author;
