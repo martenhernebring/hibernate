@@ -6,9 +6,11 @@ import se.hernebring.deprecated.OldConfigPrinter;
 import se.hernebring.deprecated.OldSimplePrinter;
 import se.hernebring.deprecated.OldBookController;
 import se.hernebring.print.Printer;
+import se.hernebring.print.ManyToManyPrinter;
 import se.hernebring.print.HarnestPrinter;
 import se.hernebring.store.AuthorController;
 import se.hernebring.store.BookController;
+import se.hernebring.store.PublisherController;
 
 @SuppressWarnings("deprecation")
 public class Main {
@@ -20,13 +22,18 @@ public class Main {
         //BasicConfigurator.configure(); for logging
         Printer printer;
         if (args != null && args.length > 0 && !args[0].equals("")) {
-            if(Character.isDigit(args[0].trim().charAt(0))) {
-                printer = new OldConfigPrinter(new File("config_test.tmp"), new OldBookController(args));
+            Character c1 = args[0].trim().charAt(0);
+            if(Character.isDigit(c1)) {
+                if(c1 == '3') {
+                    printer = new OldConfigPrinter(new File("config_test.tmp"), new OldBookController(args));
+                } else {
+                    printer = new HarnestPrinter(new File("relational_test.tmp"), new AuthorController(new BookController()));
+                }
             } else {
                 printer = new OldSimplePrinter(new File("print_test.tmp"), new OldBookController(args));
             }
         } else {
-            printer = new HarnestPrinter(new File("relational_test.tmp"), new AuthorController(new BookController()));
+            printer = new ManyToManyPrinter(new File("many_to_many_test.tmp"), new AuthorController(new BookController()), new PublisherController());
         }
         printer.print();
     }

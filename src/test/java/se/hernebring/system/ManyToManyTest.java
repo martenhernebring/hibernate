@@ -18,17 +18,17 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
-public class HarnestTest {
-
+public class ManyToManyTest {
+    
     private static List<String> lines;
 
     @BeforeAll
     public static void setUp() {
-        final File tempFile = new File("relational_test.tmp");
-        String[] ovningar = { "4" };
+        final File tempFile = new File("many_to_many_test.tmp");
+        String[] noArgs = {};
 
         try {
-            Main.main(ovningar);
+            Main.main(noArgs);
         } catch (MappingException ex) {
             fail("Item was not saved. Problem with property access in code and field access in database.");
             ex.printStackTrace();
@@ -53,19 +53,9 @@ public class HarnestTest {
             System.out.println(line);
         }
     }
-
+    
     @Test
     public void verifyNothingStoredInDatabase() {
-        assertEquals("Database: Is Book and Author empty? true", lines.get(0).trim());
-    }
-    
-    @Test
-    public void verifyBookAndAuthorStoredInDatabase() {
-        assertEquals("Database: Is Book and Author not empty? true", lines.get(1).trim());
-    }
-    
-    @Test
-    public void verifyAuthorHas3Books() {
-        assertEquals("Author: Number of books added? 3", lines.get(2).trim());
+        assertEquals("Database: Is Publisher empty? true", lines.get(0).trim());
     }
 }

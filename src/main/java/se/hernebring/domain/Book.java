@@ -49,16 +49,16 @@ public class Book {
         if (o == null || getClass() != o.getClass())
             return false;
         Book book = (Book) o;
-        return new EqualsBuilder().append(title, book.title).isEquals();
+        return new EqualsBuilder().append(id, book.id).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(title).toHashCode();
+        return new HashCodeBuilder().append(id).toHashCode();
     }
 
     public int compareTo(Book book) {
-        return new CompareToBuilder().append(this.title, book.title).toComparison();
+        return new CompareToBuilder().append(this.id, book.id).toComparison();
     }
 
 }

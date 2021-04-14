@@ -76,16 +76,16 @@ public class Author {
         if (o == null || getClass() != o.getClass())
             return false;
         Author author = (Author) o;
-        return new EqualsBuilder().append(author, author.name).isEquals();
+        return new EqualsBuilder().append(author, author.id).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(name).toHashCode();
+        return new HashCodeBuilder().append(id).toHashCode();
     }
 
     public int compareTo(Author author) {
-        return new CompareToBuilder().append(this.name, author.name).toComparison();
+        return new CompareToBuilder().append(this.id, author.id).toComparison();
     }
 
 }
