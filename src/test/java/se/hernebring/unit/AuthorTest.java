@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import se.hernebring.domain.Author;
 
 public class AuthorTest {
-    static Author author;
+    static Author author, author2;
     
     @BeforeAll
     public static void init() {
@@ -42,12 +42,18 @@ public class AuthorTest {
     
     @Test
     public void correctToString() {
-        assertEquals("Author[name=" + author.getName() + "]", author.toString());
+        assertEquals("Author [name=" + author.getName() + "]", author.toString());
     }
     
     @Test
     public void hasEmptyConstructorForHibernate() {
         author = new Author();
         assertNull(author.getName());
+    }
+    
+    @Test
+    public void isEqual() {
+        author = new Author("Name");
+        assertEquals(author, author);
     }
 }

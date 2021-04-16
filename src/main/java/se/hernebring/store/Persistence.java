@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
+import se.hernebring.domain.Publisher;
 
 public class Persistence {
 
@@ -44,6 +45,15 @@ public class Persistence {
         session.close();
     }
     
+    public static void save(Publisher publisher) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        session.save(publisher);
+        transaction.commit();
+        session.close();
+    }
+    
     static Book getBook(int id) {
         var factory = getSessionFactory();
         Session session = factory.openSession();
@@ -71,6 +81,16 @@ public class Persistence {
         session.close();
         return author;
     }
+    
+    static Publisher getPublisher(int id) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        Publisher publisher = (Publisher) session.get(Publisher.class, id);
+        transaction.commit();
+        session.close();
+        return publisher;
+    }
 
     static void delete(int id) {
         if(id == 1) {
@@ -94,6 +114,33 @@ public class Persistence {
         session.delete(book);
         transaction.commit();
         session.close();
+    }
+
+    public static void connect(int id) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        Publisher publisher = (Publisher) session.get(Publisher.class, id);
+        Author author = (Author) session.get(Author.class, id);
+        publisher.add(author);
+        author.add(publisher);
+        session.save(publisher);
+        session.save(author);
+        transaction.commit();
+        session.close();
+    }
+
+    public static boolean isConnected(int id) {
+        var factory = getSessionFactory();
+        Session session = factory.openSession();
+        var transaction = session.beginTransaction();
+        Publisher publisher = (Publisher) session.get(Publisher.class, id);
+        Author author = (Author) session.get(Author.class, id);
+        boolean pubHasAuth = publisher.getAuthors().contains(author);
+        boolean authHasPub = author.getPublishers().contains(publisher);
+        transaction.commit();
+        session.close();
+        return pubHasAuth && authHasPub;
     }
 
 }

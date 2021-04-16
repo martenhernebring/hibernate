@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import se.hernebring.app.Main;
 
-public class ManyToManyTest {
+public class PublisherToAuthorTest {
     
     private static List<String> lines;
 
@@ -57,5 +57,17 @@ public class ManyToManyTest {
     @Test
     public void verifyNothingStoredInDatabase() {
         assertEquals("Database: Is Publisher empty? true", lines.get(0).trim());
+        assertEquals("Database: Is Book and Author empty? true", lines.get(1).trim());
+    }
+    
+    @Test
+    public void verifyPublisherAndAuthorStoredInDatabase() {
+        assertEquals("Database: Is Publisher empty? false", lines.get(2).trim());
+        assertEquals("Database: Is Book and Author not empty? true", lines.get(3).trim());
+    }
+    
+    @Test
+    public void verifyPublisherAndAuthorConnected() {
+        assertEquals("PublisherController: Is Author and Publisher connected? true", lines.get(4).trim());
     }
 }

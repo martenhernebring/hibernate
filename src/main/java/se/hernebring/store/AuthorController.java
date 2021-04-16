@@ -4,6 +4,7 @@ import java.util.List;
 
 import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
+import se.hernebring.domain.Publisher;
 
 public class AuthorController implements Controller {
 
@@ -74,6 +75,12 @@ public class AuthorController implements Controller {
     public int getNumberOfBooks() {
         List<Book> books = author.getBooks();
         return books.size();
+    }
+    
+    public Author getId(int id) {
+        this.id = id;
+        author = (Author) Persistence.getAuthor(id);
+        return author;
     }
 
 }

@@ -6,7 +6,7 @@ import se.hernebring.deprecated.OldConfigPrinter;
 import se.hernebring.deprecated.OldSimplePrinter;
 import se.hernebring.deprecated.OldBookController;
 import se.hernebring.print.Printer;
-import se.hernebring.print.ManyToManyPrinter;
+import se.hernebring.print.PublisherToAuthorPrinter;
 import se.hernebring.print.HarnestPrinter;
 import se.hernebring.store.AuthorController;
 import se.hernebring.store.BookController;
@@ -33,7 +33,7 @@ public class Main {
                 printer = new OldSimplePrinter(new File("print_test.tmp"), new OldBookController(args));
             }
         } else {
-            printer = new ManyToManyPrinter(new File("many_to_many_test.tmp"), new AuthorController(new BookController()), new PublisherController());
+            printer = new PublisherToAuthorPrinter(new File("many_to_many_test.tmp"), new AuthorController(new BookController()), new PublisherController());
         }
         printer.print();
     }

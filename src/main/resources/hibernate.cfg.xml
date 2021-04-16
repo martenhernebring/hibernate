@@ -16,6 +16,7 @@
 		<mapping class="se.hernebring.deprecated.OldBook" />
 		<mapping class="se.hernebring.domain.Book" />
 		<mapping class="se.hernebring.domain.Author" />
+		<mapping class="se.hernebring.domain.Publisher" />
 	</session-factory>
 
 </hibernate-configuration>

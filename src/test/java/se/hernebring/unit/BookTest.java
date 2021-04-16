@@ -32,15 +32,10 @@ public class BookTest {
     public void sameTitle() {
         assertEquals(title.getTitle(), title3.getTitle());
     }
-
-    @Test
-    public void isEqual() {
-        assertEquals(title, title3);
-    }
     
     @Test
     public void correctToString() {
-        assertEquals("Book[title=" + title.getTitle() + "]", title.toString());
+        assertEquals("Book [title=" + title.getTitle() + "]", title.toString());
     }
     
     @Test
@@ -53,6 +48,11 @@ public class BookTest {
     public void changeTitle() {
         title2.setTitle("Other");
         assertNotEquals(title.getTitle(), title2.getTitle());
+    }
+    
+    @Test
+    public void isEqual() {
+        assertEquals(title, title3);
     }
 
 }

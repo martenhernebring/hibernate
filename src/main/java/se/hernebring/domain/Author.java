@@ -3,11 +3,13 @@ package se.hernebring.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -28,6 +30,8 @@ public class Author {
     private String address;
     @OneToMany
     private List<Book> books;
+    @ManyToMany
+    private Set<Publisher> publishers;
     @Transient
     private int age;
 
@@ -64,9 +68,17 @@ public class Author {
         return Collections.unmodifiableList(books);
     }
     
+    public void add(Publisher publisher) {
+        this.publishers.add(publisher);
+    }
+    
+    public Set<Publisher> getPublishers() {
+        return Collections.unmodifiableSet(publishers);
+    }
+    
     @Override
     public String toString() {
-        return "Author[name=" + name + "]";
+        return "Author [name=" + name + "]";
     }
 
     @Override
