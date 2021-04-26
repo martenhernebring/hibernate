@@ -1,0 +1,5 @@
+Database: Is Publisher empty? true
+Database: Is Book and Author empty? true
+Database: Is Publisher empty? false
+Database: Is Book and Author not empty? true
+PublisherController: Is Author and Publisher connected? true

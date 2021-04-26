@@ -36,6 +36,11 @@ public class PublisherToAuthorPrinter implements Printer {
             writer.write("Database: Is Book and Author not empty? " + Boolean.toString(authorController.isNotNull()) + '\n');
             publisherController.connect(authorController);
             writer.write("PublisherController: Is Author and Publisher connected? " + Boolean.toString(publisherController.isConnected(authorController)) + '\n');
+            publisherController.save("Pearson");
+            authorController.savePearsonAuthorWith2Books();
+            publisherController.connect(authorController);
+            writer.write("Database: Is second Publisher not empty? " + publisherController.getId(2));
+            writer.write("Database: Is second Author not empty? " + authorController.getId(2));
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }

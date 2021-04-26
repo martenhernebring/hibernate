@@ -70,4 +70,10 @@ public class PublisherToAuthorTest {
     public void verifyPublisherAndAuthorConnected() {
         assertEquals("PublisherController: Is Author and Publisher connected? true", lines.get(4).trim());
     }
+    
+    @Test
+    public void verifyTwoPublishersAndAuthorsStoredInDatabase() {
+        assertEquals("Database: Is second Publisher not empty? true", lines.get(5).trim());
+        assertEquals("Database: Is second Author not empty? true", lines.get(6).trim());
+    }
 }

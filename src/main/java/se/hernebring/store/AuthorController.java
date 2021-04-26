@@ -4,7 +4,6 @@ import java.util.List;
 
 import se.hernebring.domain.Author;
 import se.hernebring.domain.Book;
-import se.hernebring.domain.Publisher;
 
 public class AuthorController implements Controller {
 
@@ -45,6 +44,13 @@ public class AuthorController implements Controller {
         saveBook("Effective Java 3rd Edition");
         saveBook("Java Puzzlers With Access Codes");
         saveBook("Java™ Puzzlers: Traps, Pitfalls, and Corner Cases");
+        save();
+    }
+    
+    public void savePearsonAuthorWith2Books() {
+        create("Robert C. Martin");
+        saveBook("Clean Code");
+        saveBook("Clean Agile");
         save();
     }
 

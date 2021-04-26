@@ -3,7 +3,6 @@
  */
 package se.hernebring.store;
 
-import se.hernebring.domain.Author;
 import se.hernebring.domain.Publisher;
 
 /**
