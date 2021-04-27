@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-public class Book {
+public class Book implements Comparable<Book>{
     // Property access with Auto generate id to be used as primary key required by Hibernate
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -19,7 +19,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /*A book can be written by only one author but an author can write one or more books.*/
 @Entity
-public class Author {
+public class Author implements Comparable<Author>{
     
     // Property access with Auto generate id to be used as primary key required by Hibernate
     @Id
